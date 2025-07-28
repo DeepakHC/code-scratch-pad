@@ -17,23 +17,4 @@ Hosted at: https://deepakhc.github.io/code-scratch-pad/
 
 ---
 
-## 📁 Project Structure
-
-code-scratch-pad/
-├── index.html # Main HTML scaffolding
-├── scripts/
-│ ├── scratchpad.js # Core app logic (Ace editor, Firebase, preview)
-│ └── libs.js # Dependencies (jQuery, Underscore, Ace, etc.)
-├── css/
-│ └── style.css # Styles for editor, preview, layout, full‑screen mode
-├── img/
-│ ├── logo‑dark.png # Icons and interface assets
-│ └── menu‑icon.png
-└── README.md
-
-
----
-
-## 🚀 Getting Started
-
-https://deepakhc.github.io/code-scratch-pad/
+![screenshot-code-editor](https://github.com/DeepakHC/code-scratch-pad/blob/main/screenshot-code-editor.png)
