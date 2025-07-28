@@ -1,6 +1,6 @@
 # Code Scratch Pad 🚀
 
-An interactive, real-time HTML/CSS/JS scratch pad you can use to write, preview, and share web snippets instantly.
+An interactive, real-time code scratch pad you can use to write, preview, and share web snippets instantly.
 
 Hosted at: https://deepakhc.github.io/code-scratch-pad/
 
