@@ -1,0 +1,89 @@
+ body 
+ {
+    background: #fff;
+    color: #222;
+    transition: background 0.3s, color 0.3s;
+}
+body.dark {
+    background: #222;
+    color: #fff;
+}
+.toggle-switch {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 28px;
+    background: #eee;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+body.dark .toggle-switch {
+    background: #444;
+}
+.toggle-knob {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background 0.3s;
+    transform: translateX(2px);
+}
+body.dark .toggle-knob {
+    background: #222;
+    transform: translateX(22px);
+}
+.icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+.icon-sun {
+    display: block;
+}
+.icon-moon {
+    display: none;
+}
+body.dark .icon-sun {
+    display: none;
+}
+body.dark .icon-moon {
+    display: block;
+}
+
+ /* Monaco Editor custom styles */
+#editor-container {
+    box-shadow: 0 4px 24px 0 rgba(255, 168, 0, 0.13), 0 1.5px 6px 0 rgba(255, 215, 0, 0.09);
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #232526 0%, #1e1e1e 100%);
+    border: 1px solid #ffb300;
+    margin-bottom: 1.2rem;
+}
+#editor {
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+/* Run button styles */
+#run-js {
+    padding: 0.4em 1em;
+    border: none;
+    border-radius: 5px;
+    background: #ffb300;
+    color: #222;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#run-js:hover, #run-js:focus {
+    background: #ffd700;
+}

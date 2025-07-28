@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn JS</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="toggle-switch" id="themeToggle" aria-label="Toggle dark mode">
+        <div class="toggle-knob">
+            <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="5" stroke="#FFA500" stroke-width="2" fill="#FFD700"/>
+                <g stroke="#FFA500" stroke-width="2">
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </g>
+            </svg>
+            <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none">
+                <path d="M21 12.79A9 9 0 0111.21 3a7 7 0 100 14 9 9 0 009.79-4.21z" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+            </svg>
+        </div>
+    </div>
+    <h1 style="text-align:center; margin-top: 4rem; font-size: 2.8rem; font-family: 'Segoe UI', Arial, sans-serif; font-weight: 700; letter-spacing: 1px;">
+        <span style="background: linear-gradient(90deg, #ff9800 30%, #ffd700 70%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+            JavaScript Scratch Pad
+        </span> 📋
+    </h1>
+    <div style="max-width:700px;margin:2rem auto 1rem auto;padding:0 1.5rem;">
+        <!-- <label for="js-editor" style="display:block;font-family:Consolas,monospace;font-size:1.1rem;color:#ffd700;margin-bottom:0.5rem;">
+            Write JavaScript:
+        </label> -->
+        <div id="editor-container" style="position:relative;min-height:180px;">
+            <div id="editor" style="width:100%;height:180px;border-radius:8px;border:1px solid #444;background:#181818;color:#fafafa;font-family:Consolas,monospace;font-size:1.1rem;box-sizing:border-box;"></div>
+        </div>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/editor/editor.main.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.min.js"></script>
+        <script>
+        // Monaco loader
+        require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs' }});
+        window.monacoLoaded = false;
+        require(['vs/editor/editor.main'], function () {
+            window.monacoLoaded = true;
+            window.editor = monaco.editor.create(document.getElementById('editor'), {
+            value: [
+                "// Write JavaScript code here",
+                "console.log('Hello, world!');"
+            ].join('\n'),
+            language: 'javascript',
+            theme: 'vs-dark',
+            fontSize: 16,
+            minimap: { enabled: false },
+            lineNumbers: 'on',
+            roundedSelection: false,
+            scrollBeyondLastLine: false,
+            automaticLayout: true,
+            wordWrap: 'on'
+            });
+            // Focus and allow all VS Code-like shortcuts
+            window.editor.focus();
+        });
+        </script>
+        <button id="run-js">
+            <span style="vertical-align:middle;display:inline-block;margin-right:0.4em;">
+            <svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="10" fill="#fff2c1"/>
+                <polygon points="7,5 16,10 7,15" fill="#ff9800"/>
+            </svg>
+            </span>
+            Run
+        </button>
+        <script>
+        // Hook up Run button to Monaco editor
+        document.getElementById('run-js').addEventListener('click', function() {
+            if (window.monacoLoaded && window.editor) {
+            const code = window.editor.getValue();
+            try {
+                // eslint-disable-next-line no-eval
+                eval(code);
+            } catch (e) {
+                console.log('Error:', e.message);
+            }
+            }
+        });
+
+        // Allow Ctrl+Enter to run code
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            document.getElementById('run-js').click();
+            e.preventDefault();
+            }
+        });
+        </script>
+    </div>
+    <p style="max-width:700px;margin:2rem auto 0.5rem auto;padding:0 1.5rem 0 1.5rem;color:#ffd700;font-family:Consolas,monospace;font-size:1.1rem;text-align:left;">Console Output:</p>
+    <div id="console-output" style="max-width:700px;margin:0.5rem auto;padding:1.5rem;background:#222;color:#fafafa;border-radius:12px;font-family:Consolas,monospace;font-size:1.1rem;min-height:120px;white-space:pre-wrap;"></div>
+    <script>
+    (function() {
+        const outputDiv = document.getElementById('console-output');
+        const origLog = console.log;
+        console.log = function(...args) {
+            origLog.apply(console, args);
+            const msg = args.map(arg => {
+                if (typeof arg === 'object') {
+                    try {
+                        return JSON.stringify(arg, null, 2);
+                    } catch {
+                        return '[object]';
+                    }
+                }
+                return String(arg);
+            }).join(' ');
+            const pre = document.createElement('pre');
+            pre.style.marginBottom = '0.5em';
+            pre.style.background = '#181818';
+            pre.style.padding = '0.7em 1em';
+            pre.style.borderRadius = '6px';
+            pre.style.fontFamily = 'Consolas, monospace';
+            pre.style.fontSize = '0.92em'; // smaller text
+            pre.style.marginTop = '0'; // remove top margin
+            pre.textContent = msg;
+            // Insert at the top
+            if (outputDiv.firstChild) {
+                outputDiv.insertBefore(pre, outputDiv.firstChild);
+            } else {
+                outputDiv.appendChild(pre);
+            }
+        };
+    })();
+    </script>
+    <script>
+        // Default to dark mode on initial load
+        document.body.classList.add('dark');
+        const toggle = document.getElementById('themeToggle');
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+        });
+    </script>
+</body>
+</html>
